@@ -35,9 +35,17 @@ python3 "$SKILL/scripts/audit_dxf.py" exported.dxf --output-dir build/dxf-audit
 
 ## Status
 
-`v0.1 alpha`. Automated tests run without AutoCAD, but real DWG rendering and
+`v0.2 alpha`. Automated tests run without AutoCAD, but real DWG rendering and
 plot output still require human verification in AutoCAD. Do not use generated
 drawings for construction without qualified professional review.
+
+## Learning Dataset
+
+The repository includes a provenance-first workflow for organizing authorized
+floor-plan references. Public visibility on a social platform is not treated as
+permission to copy or train. Use `register_plan_reference.py`,
+`validate_learning_dataset.py`, and `summarize_design_patterns.py` to build a
+traceable local dataset without committing source media to this repository.
 
 ## Test
 

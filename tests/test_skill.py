@@ -20,7 +20,9 @@ from analyze_space import analyze  # noqa: E402
 from audit_dxf import audit  # noqa: E402
 from cad_common import load_json, load_rules, project_issues  # noqa: E402
 from generate_autolisp import generate  # noqa: E402
+from summarize_design_patterns import summarize  # noqa: E402
 from svg_to_project import convert_svg, determine_scale  # noqa: E402
+from validate_learning_dataset import validate as validate_learning_dataset  # noqa: E402
 import xml.etree.ElementTree as ET  # noqa: E402
 
 
@@ -193,6 +195,109 @@ EOF
             result = audit(path, load_rules())
         codes = {item["code"] for item in result["errors"]}
         self.assertEqual({"UNKNOWN_LAYER", "ZERO_LENGTH_LINE"}, codes)
+
+
+class LearningDatasetTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.register_script = SCRIPTS / "register_plan_reference.py"
+
+    @staticmethod
+    def annotation(sample_id: str) -> dict:
+        return {
+            "sample_id": sample_id,
+            "plan_type": "apartment",
+            "image_size": [1200, 800],
+            "quality_tags": ["clean_export"],
+            "room_types": ["living_room", "bedroom"],
+            "layout_features": ["open_living_dining"],
+            "ergonomics_observations": ["continuous_main_route"],
+            "recognition_labels": {
+                "walls": [],
+                "doors": [],
+                "windows": [],
+                "rooms": [],
+                "furniture": [],
+                "dimensions": [],
+                "text_regions": [],
+            },
+            "notes": "",
+        }
+
+    def test_authorized_sample_registers_validates_and_summarizes(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            dataset = root / "dataset"
+            media = root / "plan.png"
+            media.write_bytes(b"synthetic-plan-image")
+            annotation = root / "annotation.json"
+            annotation.write_text(
+                json.dumps(self.annotation("owned-plan-001")),
+                encoding="utf-8",
+            )
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(self.register_script),
+                    "--dataset-dir",
+                    str(dataset),
+                    "--sample-id",
+                    "owned-plan-001",
+                    "--platform",
+                    "owned",
+                    "--creator",
+                    "Test Studio",
+                    "--rights-basis",
+                    "owned",
+                    "--media",
+                    str(media),
+                    "--annotation",
+                    str(annotation),
+                    "--split",
+                    "train",
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            validation = validate_learning_dataset(dataset)
+            self.assertEqual(validation["status"], "pass")
+            summary = summarize(dataset)
+            self.assertEqual(summary["sample_count"], 1)
+            self.assertEqual(summary["room_types"]["living_room"], 1)
+
+    def test_reference_only_rejects_local_media(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            media = root / "plan.png"
+            media.write_bytes(b"platform-content")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(self.register_script),
+                    "--dataset-dir",
+                    str(root / "dataset"),
+                    "--sample-id",
+                    "reference-001",
+                    "--platform",
+                    "xiaohongshu",
+                    "--source-url",
+                    "https://www.xiaohongshu.com/explore/example",
+                    "--creator",
+                    "Example Creator",
+                    "--rights-basis",
+                    "reference_only",
+                    "--media",
+                    str(media),
+                    "--split",
+                    "reference",
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(result.returncode, 2)
+            self.assertIn("cannot copy or store", result.stderr)
 
 
 if __name__ == "__main__":

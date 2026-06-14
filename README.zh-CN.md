@@ -1,6 +1,6 @@
 # AutoCAD 中国建筑施工图 Skill
 
-这是一个 `v0.1 alpha` 的 Codex/Agent Skill，用于把文字、带尺寸图片、SVG
+这是一个 `v0.2 alpha` 的 Codex/Agent Skill，用于把文字、带尺寸图片、SVG
 或结构化 JSON 转换成可在完整版 AutoCAD 中执行的二维建筑与室内图纸包。
 
 主要能力：
@@ -11,10 +11,37 @@
 - 按成人、老年人、儿童及轮椅使用者画像分析空间；
 - 输出家具占用率、名义通行保留率、净空冲突和门扇冲突；
 - 审查 ASCII DXF 的图层、零长度线和重复线。
+- 登记经授权的平面图样本，检查数据来源、重复图片和训练集泄漏；
+- 汇总户型、房间组合、动线及人体工程学设计模式，不复制平台原图。
 
 Skill 本体位于
 [`skills/autocad-cn-drafting-skill`](skills/autocad-cn-drafting-skill)，仓库不会
 自动安装到 Codex。
+
+## 平台参考学习
+
+小红书、抖音等平台内容必须先登记来源和使用依据。公开可见不代表可以复制
+或用于训练。仅允许自有、明确获授权、已许可或公版图片进入训练数据集；
+其他内容只能保存链接和人工抽象的设计观察。
+
+```bash
+python3 "$SKILL/scripts/register_plan_reference.py" \
+  --dataset-dir datasets/interior-plans \
+  --sample-id own-plan-001 \
+  --platform owned \
+  --creator "My Studio" \
+  --rights-basis owned \
+  --media /path/to/plan.png \
+  --annotation /path/to/annotation.json \
+  --split train
+
+python3 "$SKILL/scripts/validate_learning_dataset.py" datasets/interior-plans
+python3 "$SKILL/scripts/summarize_design_patterns.py" datasets/interior-plans \
+  --output-dir build/design-patterns
+```
+
+详细规则见
+[`references/learning-dataset.md`](skills/autocad-cn-drafting-skill/references/learning-dataset.md)。
 
 ## 快速测试
 

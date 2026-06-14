@@ -1,0 +1,31 @@
+{
+  "sample_id": "replace-with-sample-id",
+  "plan_type": "apartment",
+  "image_size": [0, 0],
+  "quality_tags": [
+    "clean_export"
+  ],
+  "room_types": [
+    "living_room",
+    "bedroom",
+    "kitchen",
+    "bathroom"
+  ],
+  "layout_features": [
+    "open_living_dining",
+    "wet_area_cluster"
+  ],
+  "ergonomics_observations": [
+    "main circulation is continuous"
+  ],
+  "recognition_labels": {
+    "walls": [],
+    "doors": [],
+    "windows": [],
+    "rooms": [],
+    "furniture": [],
+    "dimensions": [],
+    "text_regions": []
+  },
+  "notes": ""
+}

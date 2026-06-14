@@ -1,6 +1,6 @@
 ---
 name: autocad-cn-drafting-skill
-description: Create and audit two-dimensional AutoCAD architectural and interior drawings that follow a configurable Chinese drafting baseline. Use when Codex must turn a written brief, dimensioned image, SVG, or structured project JSON into AutoLISP for AutoCAD; standardize layers, text, dimensions, sheets, and title blocks; inspect an ASCII DXF; or produce a CAD quality report. Trigger for floor plans, interior plans, drawing reconstruction, CAD cleanup, CAD standards checks, DWG/DXF delivery preparation, and requests mentioning GB/T 50001 or GB/T 50104.
+description: Create and audit two-dimensional AutoCAD architectural and interior drawings that follow a configurable Chinese drafting baseline. Organize authorized floor-plan learning references with provenance, annotation, deduplication, split-leakage checks, and aggregate design-pattern summaries. Use when Codex must turn a written brief, dimensioned image, SVG, or structured project JSON into AutoLISP for AutoCAD; standardize layers, text, dimensions, sheets, and title blocks; inspect an ASCII DXF; prepare a licensed floor-plan recognition dataset; or produce CAD and space-quality reports. Trigger for floor plans, interior plans, drawing reconstruction, CAD cleanup, CAD standards checks, DWG/DXF delivery preparation, authorized Xiaohongshu/Douyin design-reference analysis, and requests mentioning GB/T 50001 or GB/T 50104.
 ---
 
 # AutoCAD CN Drafting
@@ -31,6 +31,23 @@ skill as drafting automation, not as statutory design approval.
 10. Export ASCII DXF and run `scripts/audit_dxf.py`. Resolve errors before
    delivery; document accepted warnings.
 
+## Learning References
+
+1. Read `references/learning-dataset.md` before collecting platform references.
+2. Do not scrape, bypass access controls, remove watermarks, or download media
+   merely because it is publicly viewable.
+3. Register public links as `reference_only`. Store media for training only when
+   the user owns it, has explicit permission, has a suitable license, or it is
+   public domain.
+4. Read `references/plan-semantics.md`, then create an annotation from
+   `assets/plan-annotation-template.json`.
+5. Run `scripts/register_plan_reference.py`, then
+   `scripts/validate_learning_dataset.py`.
+6. Run `scripts/summarize_design_patterns.py` to aggregate room combinations,
+   layout features, quality conditions, and ergonomic observations.
+7. Keep raw datasets outside the repository. Commit schemas, scripts, synthetic
+   examples, and aggregate findings only.
+
 ## Commands
 
 ```bash
@@ -40,6 +57,9 @@ python3 scripts/svg_to_project.py plan.svg --known-svg-length 240 \
 python3 scripts/analyze_space.py project.json --output-dir space-analysis
 python3 scripts/build_package.py project.json --output-dir build
 python3 scripts/audit_dxf.py drawing.dxf --output-dir audit
+python3 scripts/register_plan_reference.py --help
+python3 scripts/validate_learning_dataset.py dataset
+python3 scripts/summarize_design_patterns.py dataset --output-dir patterns
 ```
 
 Use only Python's standard library. Keep project geometry in millimetres and
@@ -84,5 +104,5 @@ Produce:
 - a room-by-room ergonomic and space-utilization report;
 - after AutoCAD execution, DWG, ASCII DXF, PDF, and a final DXF audit report.
 
-This repository is `v0.1 alpha`. Require a human AutoCAD review before using any
+This repository is `v0.2 alpha`. Require a human AutoCAD review before using any
 output for construction.
