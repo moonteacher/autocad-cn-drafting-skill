@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12000mm" height="8000mm" viewBox="0 0 1200 800">
+  <g transform="translate(100 100)">
+    <rect x="0" y="0" width="1000" height="600"/>
+    <line x1="500" y1="0" x2="500" y2="600"/>
+    <polyline points="0,300 200,300 200,600"/>
+    <path d="M 500 300 L 800 300 L 800 600"/>
+    <circle cx="850" cy="150" r="30"/>
+  </g>
+</svg>

@@ -1,0 +1,116 @@
+{
+  "rules_version": "0.1.0",
+  "units": "mm",
+  "model_space_scale": "1:1",
+  "text_style": {
+    "name": "CN-CAD",
+    "preferred_fonts": [
+      "simfang.ttf",
+      "simsun.ttc",
+      "Arial Unicode MS.ttf",
+      "Arial.ttf"
+    ],
+    "fallback_font": "txt.shx",
+    "paper_text_height_mm": 3.5
+  },
+  "dimension_style": {
+    "name": "CN-CAD-DIM",
+    "paper_text_height_mm": 3.5,
+    "arrow_size_mm": 2.5,
+    "extension_offset_mm": 1.0,
+    "decimal_places": 0
+  },
+  "sheets": {
+    "A4": [210, 297],
+    "A3": [297, 420],
+    "A2": [420, 594],
+    "A1": [594, 841],
+    "A0": [841, 1189]
+  },
+  "layers": {
+    "A-WALL-EXST": {"color": 7, "linetype": "CONTINUOUS", "lineweight": 50, "plot": true},
+    "A-WALL-NEW": {"color": 1, "linetype": "CONTINUOUS", "lineweight": 50, "plot": true},
+    "A-WALL-DEMO": {"color": 1, "linetype": "HIDDEN", "lineweight": 25, "plot": true},
+    "A-DOOR": {"color": 3, "linetype": "CONTINUOUS", "lineweight": 25, "plot": true},
+    "A-WIND": {"color": 4, "linetype": "CONTINUOUS", "lineweight": 25, "plot": true},
+    "A-FLOR-FNSH": {"color": 8, "linetype": "CONTINUOUS", "lineweight": 13, "plot": true},
+    "A-CLNG": {"color": 6, "linetype": "CONTINUOUS", "lineweight": 13, "plot": true},
+    "A-FURN": {"color": 2, "linetype": "CONTINUOUS", "lineweight": 18, "plot": true},
+    "A-FIXT": {"color": 5, "linetype": "CONTINUOUS", "lineweight": 18, "plot": true},
+    "A-GRID": {"color": 4, "linetype": "CENTER", "lineweight": 13, "plot": true},
+    "A-ANNO-DIMS": {"color": 2, "linetype": "CONTINUOUS", "lineweight": 13, "plot": true},
+    "A-ANNO-TEXT": {"color": 7, "linetype": "CONTINUOUS", "lineweight": 13, "plot": true},
+    "A-ANNO-SYMB": {"color": 6, "linetype": "CONTINUOUS", "lineweight": 18, "plot": true},
+    "A-BORDER": {"color": 7, "linetype": "CONTINUOUS", "lineweight": 35, "plot": true},
+    "A-TTLB": {"color": 7, "linetype": "CONTINUOUS", "lineweight": 18, "plot": true},
+    "A-REF": {"color": 9, "linetype": "CONTINUOUS", "lineweight": 9, "plot": false},
+    "A-NPLT-REVIEW": {"color": 1, "linetype": "DASHED", "lineweight": 18, "plot": false}
+  },
+  "required_layers": [
+    "A-WALL-EXST",
+    "A-DOOR",
+    "A-WIND",
+    "A-ANNO-DIMS",
+    "A-ANNO-TEXT",
+    "A-BORDER",
+    "A-TTLB",
+    "A-NPLT-REVIEW"
+  ],
+  "audit": {
+    "coordinate_tolerance_mm": 0.01,
+    "duplicate_tolerance_mm": 0.1,
+    "minimum_wall_thickness_mm": 80,
+    "maximum_wall_thickness_mm": 600,
+    "minimum_door_width_mm": 600,
+    "maximum_door_width_mm": 2400
+  },
+  "ergonomics": {
+    "profiles": {
+      "general_adult": {
+        "minimum_passage_width_mm": 800,
+        "comfortable_passage_width_mm": 900,
+        "minimum_front_reach_mm": 600,
+        "minimum_seated_knee_clearance_mm": 450
+      },
+      "accessible_wheelchair": {
+        "minimum_passage_width_mm": 1200,
+        "turning_circle_diameter_mm": 1500,
+        "minimum_door_clear_width_mm": 800,
+        "maximum_forward_reach_height_mm": 1200,
+        "maximum_side_reach_height_mm": 1400
+      },
+      "older_adult": {
+        "minimum_passage_width_mm": 900,
+        "comfortable_passage_width_mm": 1000,
+        "turning_circle_diameter_mm": 1200
+      },
+      "child": {
+        "minimum_passage_width_mm": 700,
+        "maximum_primary_reach_height_mm": 1100
+      }
+    },
+    "activity_clearances": {
+      "door_swing_keep_clear": true,
+      "bed_side_mm": 600,
+      "bed_foot_mm": 700,
+      "wardrobe_front_mm": 900,
+      "desk_chair_pullback_mm": 900,
+      "dining_chair_pullback_mm": 750,
+      "kitchen_work_aisle_single_mm": 900,
+      "kitchen_work_aisle_double_mm": 1200,
+      "toilet_front_mm": 600,
+      "washbasin_front_mm": 700,
+      "shower_entry_mm": 700
+    },
+    "space_utilization": {
+      "maximum_furniture_coverage_ratio": 0.45,
+      "minimum_circulation_reserve_ratio": 0.30,
+      "minimum_room_area_m2": 2.0
+    },
+    "classification": {
+      "code": "A cited regulation or project requirement.",
+      "baseline": "A configurable ergonomic design baseline, not a statutory value.",
+      "advisory": "A design recommendation requiring human judgement."
+    }
+  }
+}

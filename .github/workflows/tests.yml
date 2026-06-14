@@ -1,0 +1,31 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile
+        run: python -m py_compile skills/autocad-cn-drafting-skill/scripts/*.py tests/*.py
+      - name: Test
+        run: python -m unittest discover -s tests -v
+      - name: Exercise example workflow
+        run: |
+          SKILL=skills/autocad-cn-drafting-skill
+          python "$SKILL/scripts/validate_project.py" examples/apartment/project.json
+          python "$SKILL/scripts/analyze_space.py" examples/apartment/project.json --output-dir build/space
+          python "$SKILL/scripts/build_package.py" examples/apartment/project.json --output-dir build/apartment
+          python "$SKILL/scripts/audit_dxf.py" examples/dxf/sample-clean.dxf --output-dir build/dxf-audit

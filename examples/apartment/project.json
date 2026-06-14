@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "project_name": "Compact Apartment Study",
+    "drawing_title": "Architectural and Furniture Plan",
+    "drawing_number": "A-101",
+    "designer": "Example Designer",
+    "date": "2026-06-14",
+    "units": "mm",
+    "scale": 50,
+    "assumptions": [
+      "Example geometry is for software testing only."
+    ],
+    "open_issues": []
+  },
+  "source": {
+    "type": "structured",
+    "scale_verified": true
+  },
+  "drawing": {
+    "sheet": "A3",
+    "orientation": "landscape",
+    "layout_name": "A3"
+  },
+  "walls": [
+    {"id": "W1", "start": [0, 0], "end": [6000, 0], "thickness": 200, "kind": "existing"},
+    {"id": "W2", "start": [6000, 0], "end": [6000, 4200], "thickness": 200, "kind": "existing"},
+    {"id": "W3", "start": [6000, 4200], "end": [0, 4200], "thickness": 200, "kind": "existing"},
+    {"id": "W4", "start": [0, 4200], "end": [0, 0], "thickness": 200, "kind": "existing"}
+  ],
+  "doors": [
+    {
+      "id": "D1",
+      "hinge": [800, 100],
+      "width": 900,
+      "angle": 90,
+      "swing": "left",
+      "opening_angle": 90
+    }
+  ],
+  "windows": [
+    {
+      "id": "WIN1",
+      "start": [2100, 4100],
+      "end": [3900, 4100],
+      "frame_depth": 80
+    }
+  ],
+  "rooms": [
+    {
+      "id": "R1",
+      "name": "Living and Dining",
+      "boundary": [[100, 100], [5900, 100], [5900, 4100], [100, 4100]],
+      "label_point": [3000, 3300],
+      "user_profiles": ["general_adult", "older_adult"]
+    }
+  ],
+  "furniture": [
+    {
+      "id": "F-SOFA",
+      "room_id": "R1",
+      "category": "sofa",
+      "footprint": [[500, 2500], [2500, 2500], [2500, 3400], [500, 3400]],
+      "clearance_zones": [
+        {
+          "name": "sofa_front",
+          "classification": "baseline",
+          "polygon": [[500, 1700], [2500, 1700], [2500, 2500], [500, 2500]]
+        }
+      ]
+    },
+    {
+      "id": "F-TABLE",
+      "room_id": "R1",
+      "category": "dining_table",
+      "footprint": [[3900, 2300], [5100, 2300], [5100, 3100], [3900, 3100]],
+      "clearance_zones": [
+        {
+          "name": "chair_pullback",
+          "classification": "baseline",
+          "polygon": [[3700, 1800], [5300, 1800], [5300, 2100], [3700, 2100]]
+        }
+      ]
+    }
+  ],
+  "circulation_paths": [
+    {
+      "id": "P1",
+      "room_id": "R1",
+      "centerline": [[1500, 700], [3200, 1200], [4500, 1600]],
+      "clear_width": 1000,
+      "user_profiles": ["general_adult", "older_adult"],
+      "classification": "baseline"
+    }
+  ],
+  "geometry": [],
+  "annotations": {
+    "dimensions": [
+      {"start": [0, 0], "end": [6000, 0], "location": [3000, -600]},
+      {"start": [6000, 0], "end": [6000, 4200], "location": [6600, 2100]}
+    ],
+    "notes": [
+      {"point": [3500, 3700], "text": "ALPHA SAMPLE - VERIFY ALL DIMENSIONS", "layer": "A-NPLT-REVIEW"}
+    ]
+  }
+}

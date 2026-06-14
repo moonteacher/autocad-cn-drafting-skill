@@ -1,0 +1,4 @@
+interface:
+  display_name: "AutoCAD CN Drafting"
+  short_description: "Generate and audit Chinese architectural CAD drawings"
+  default_prompt: "Use $autocad-cn-drafting-skill to turn this brief, image, or SVG into a validated AutoCAD drawing package."
